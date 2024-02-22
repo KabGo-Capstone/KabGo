@@ -7,19 +7,18 @@ parameters:
     run-build-supply-service-job:
         type: boolean
         default: false
-    run-build-service-2-job:
-        type: boolean
-        default: false
 
 jobs:
     run-build-supply:
-        executor: node/default
         working_directory: ~/KabGo/servers/supply
+        executor: node/default
         steps:
-            - checkout:
-                  path: ~/KabGo
+            - checkout
+            - node/install-npm
             - node/install-packages:
-                  pkg-manager: npm
+              app-dir: ~/KabGo/servers/supply
+              cache-path: node_modules
+              override-ci-command: npm i
             - run:
               command: npm run build
 

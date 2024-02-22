@@ -12,7 +12,6 @@ workflows:
                   name: check-updated-files
                   mapping: |
                       servers/supply/.* run-build-supply-service-job true
-                      service2/.* run-build-service-2-job true
                   base-revision: main
                   config-path: .circleci/continue_config.yml
 
