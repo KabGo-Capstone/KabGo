@@ -14,9 +14,10 @@ parameters:
 jobs:
     run-build-supply:
         executor: node/default
-        working_directory: ~/project/servers/supply
+        working_directory: ~/KabGo/servers/supply
         steps:
-            - checkout
+            - checkout:
+                  path: ~/KabGo
             - node/install-packages:
                   pkg-manager: npm
             - run:
