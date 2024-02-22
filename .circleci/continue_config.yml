@@ -29,9 +29,12 @@ jobs:
 
             - run: chmod +x ~/KabGo/scripts/deploy.sh
 
-            - add_ssh_keys
+            - add_ssh_keys:
+                  fingerprints:
+                      - "SHA256:HbP3ojPPxnWISPCpbzKsEEa7GSZ1VJlsG4d6sqTAMhs"
 
             - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "KabGo/scripts/deploy.sh --service supply"
+
             # - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --port 24700 --service supply
 
 workflows:
