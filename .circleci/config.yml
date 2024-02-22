@@ -1,17 +1,30 @@
 version: 2.1
 
-setup: true
-
 orbs:
-    path-filtering: circleci/path-filtering@0.1.1
+    node: circleci/node@5.2.0
+
+parameters:
+    run-build-supply-service-job:
+        type: boolean
+        default: true
+
+jobs:
+    run-build-supply:
+        working_directory: ~/KabGo/servers/supply
+        executor: node/default
+        steps:
+            - checkout
+            - node/install-npm
+            - node/install-packages:
+                  app-dir: ~/KabGo/servers/supply
+                  cache-path: node_modules
+                  override-ci-command: npm i
+            - run:
+                  command: npm run build
 
 workflows:
-    always-run:
+    build_supply_service:
+        when: << pipeline.parameters.run-build-supply-service-job >>
         jobs:
-            - path-filtering/filter:
-                  name: check-updated-files
-                  mapping: |
-                      servers/supply/.* run-build-supply-service-job true
-                  base-revision: main
-                  config-path: .circleci/continue_config.yml
+            - run-build-supply
 
