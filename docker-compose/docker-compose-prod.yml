@@ -44,7 +44,7 @@ services:
             - traefik.http.routers.supply-service.rule=Host(`kabgo-supply.mtech.id.vn`)
             - traefik.http.routers.supply-service.entrypoints=websecure
             - traefik.http.routers.supply-service.tls=true
-            - traefik.http.routers.supply-service.tls.certresolver=le
+            - traefik.http.routers.supply-service.tls.certresolver=letsencrypt
         restart: unless-stopped
 
     # rabbitmq:
