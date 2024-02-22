@@ -36,7 +36,7 @@ fi
 echo "start pull and fix format"
 
 # SSH into the server and pull changes from the Git repository
-ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo && git pull origin main && npm run format-fix"
+ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo && git pull origin main"
 
 echo "start build and deploy"
 
