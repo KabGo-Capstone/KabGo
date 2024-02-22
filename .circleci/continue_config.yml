@@ -31,8 +31,6 @@ jobs:
 
             - add_ssh_keys
 
-            - run: ssh-keyscan -H mtech.id.vn >> ~/.ssh/known_hosts
-
             - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
 
 workflows:
