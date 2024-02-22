@@ -32,7 +32,7 @@ services:
         networks:
             - proxy
         ports:
-            - "5010:5001"
+            - "5010:5002"
         environment:
             FORCE_COLOR: 1
             DEBUG_COLORS: "true"
