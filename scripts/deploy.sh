@@ -32,5 +32,3 @@ echo "start build and deploy"
 cd ~/KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d
 
 echo "Deploy successfully"
-
-exit 1
