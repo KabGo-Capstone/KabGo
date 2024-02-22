@@ -31,7 +31,7 @@ jobs:
                   fingerprints:
                       - "SHA256:mubRTx/rWnPeI9OSRbwV/ig1rC0LpbYCgNsSqQ6ACPg"
 
-            - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "chmod +x ~/KabGo/scripts/deploy.sh && ~/KabGo/scripts/deploy.sh --service supply-service --service-path supply"
+            - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "chmod +x ~/KabGo/scripts/deploy.sh && ~/KabGo/scripts/deploy.sh --service supply-service --service-path servers/supply"
 
             # - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --port 24700 --service supply
 
