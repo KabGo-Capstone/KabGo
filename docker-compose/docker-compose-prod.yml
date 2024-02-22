@@ -144,3 +144,7 @@ services:
     #     - COLORTERM=truecolor
     #   depends_on:
     #     - zookeeper
+
+networks:
+    proxy:
+        external: true
