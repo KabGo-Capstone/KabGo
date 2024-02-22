@@ -4,6 +4,9 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+COPY ../protos .
+
+
 RUN npm ci
 
 COPY . .
