@@ -33,8 +33,16 @@ if [[ -z $VPS_IP || -z $USERNAME || -z $VPS_PORT || -z $SERVICE ]]; then
     exit 1
 fi
 
+echo "start pull and fix format"
+
 # SSH into the server and pull changes from the Git repository
 ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo && git pull origin main && npm run format-fix"
 
+echo "start build and deploy"
+
 # Restart the application server (e.g., if using Node.js)
 ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d"
+
+echo "Deploy successfully"
+
+exit 1
