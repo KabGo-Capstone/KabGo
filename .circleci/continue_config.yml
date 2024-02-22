@@ -26,7 +26,7 @@ jobs:
 
             - run: chmod +x ~/KabGo/scripts/deploy.sh
 
-            - run: apt-get install rsync
+            - run: sudo apt-get install rsync
 
             - add_ssh_keys
 
