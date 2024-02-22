@@ -32,7 +32,7 @@ cd ~/KabGo && git pull origin main
 
 echo "start build and deploy"
 
-cd ~/KabGo/$SERVICE_PATH && mkdir protos && cp -r ../protos ./protos
+cd ~/KabGo/$SERVICE_PATH && cp -r ../protos ./protos
 
 # Restart the application server (e.g., if using Node.js)
 cd ~/KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d
