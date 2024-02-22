@@ -35,7 +35,7 @@ echo "start build and deploy"
 cd ~/KabGo/$SERVICE_PATH && cp -r ../protos ./protos
 
 # Restart the application server (e.g., if using Node.js)
-cd ~/KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d
+cd ~/KabGo/docker-compose && docker compose -f docker-compose-prod.yml down && docker compose -f docker-compose-prod.yml up $SERVICE -d --build
 
 cd ~/KabGo/$SERVICE_PATH && rm -rf protos
 
