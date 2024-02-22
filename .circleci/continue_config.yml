@@ -27,8 +27,6 @@ jobs:
 
             - run: npm run build
 
-            - run:
-
             - add_ssh_keys:
                   fingerprints:
                       - "SHA256:mubRTx/rWnPeI9OSRbwV/ig1rC0LpbYCgNsSqQ6ACPg"
