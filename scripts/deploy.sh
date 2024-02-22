@@ -34,7 +34,7 @@ if [[ -z $VPS_IP || -z $USERNAME || -z $VPS_PORT || -z $SERVICE ]]; then
 fi
 
 # SSH into the server and pull changes from the Git repository
-ssh -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo && git pull origin main && npm run format-fix"
+ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo && git pull origin main && npm run format-fix"
 
 # Restart the application server (e.g., if using Node.js)
-ssh -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d"
+ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d"
