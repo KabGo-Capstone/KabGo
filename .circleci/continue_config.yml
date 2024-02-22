@@ -23,13 +23,10 @@ jobs:
                   cache-path: node_modules
                   override-ci-command: npm i
             - run: npm run build
+
             - run: chmod +x ~/KabGo/scripts/deploy.sh
 
-            - type: shell
-              shell: /bin/sh
-              pwd: /
-
-            - run: sudo apt-get install rsync
+            - run: apt-get install rsync
 
             - add_ssh_keys
 
