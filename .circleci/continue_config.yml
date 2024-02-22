@@ -28,9 +28,7 @@ jobs:
     deploy-supply-service:
         working_directory: ~/KabGo/servers/supply
         steps:
-            - run:
-              command:
-                  - ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
+            - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
 
 workflows:
     build_supply_service:
