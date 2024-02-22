@@ -7,6 +7,10 @@ while [[ $# -gt 0 ]]; do
             SERVICE="$2"
             shift 2
             ;;
+        --service-path)
+            SERVICE_PATH="$2"
+            shift 2
+            ;;
         *)
             echo "Invalid argument: $1"
             exit 1
@@ -16,8 +20,8 @@ done
 
 
 # Ensure all required parameters are provided
-if [[ -z $SERVICE ]]; then
-    echo "Usage: $0 --service <SERVICE>"
+if [[ -z $SERVICE || -z $SERVICE_PATH ]]; then
+    echo "Usage: $0 --service <SERVICE> --service-path <SERVICE_PATH>"
     exit 1
 fi
 
@@ -28,7 +32,11 @@ cd ~/KabGo && git pull origin main
 
 echo "start build and deploy"
 
+cd ~/KabGo/$SERVICE_PATH && mkdir protos && cp -r ../protos ./protos
+
 # Restart the application server (e.g., if using Node.js)
 cd ~/KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d
+
+cd ~/KabGo/$SERVICE_PATH && rm -rf protos
 
 echo "Deploy successfully"
