@@ -6,10 +6,10 @@ orbs:
 parameters:
     run-build-supply-service-job:
         type: boolean
-        default: true
+        default: false
     run-build-all-server-service-job:
         type: boolean
-        default: true
+        default: false
 
 jobs:
     run-build-supply:
@@ -25,11 +25,22 @@ jobs:
             - run:
                   command: npm run build
 
+    deploy-supply-service:
+        working_directory: ~/KabGo/servers/supply
+        steps:
+            - run:
+              command:
+                  - ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
+
 workflows:
     build_supply_service:
         when: << pipeline.parameters.run-build-supply-service-job >>
         jobs:
             - run-build-supply
+            - deploy-supply-service:
+                  requires:
+                      - run-build-supply
+
     build_all_server_service:
         when: << pipeline.parameters.run-build-all-server-service-job >>
         jobs:
