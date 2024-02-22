@@ -24,6 +24,17 @@ jobs:
                   override-ci-command: npm i
             - run: npm run build
             - run: chmod +x ~/KabGo/scripts/deploy.sh
+
+            - type: shell
+              shell: /bin/sh
+              pwd: /
+
+            - run: sudo apt-get install rsync
+
+            - add_ssh_keys
+
+            - run: ssh-keyscan -H mtech.id.vn >> ~/.ssh/known_hosts
+
             - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
 
 workflows:
