@@ -6,7 +6,7 @@ orbs:
 parameters:
     run-build-supply-service-job:
         type: boolean
-        default: false
+        default: true
     run-build-all-server-service-job:
         type: boolean
         default: false
