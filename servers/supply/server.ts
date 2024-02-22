@@ -42,6 +42,8 @@ const server = app.run(() => {
             }
         }
     )
+
+    console.log('test')
 })
 
 process.on('unhandledRejection', (err: Error) => {
