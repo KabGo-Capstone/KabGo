@@ -24,7 +24,7 @@ jobs:
                   override-ci-command: npm i
             - run:
                   command: npm run build
-            - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
+            - run: sudo ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
 
 workflows:
     build_supply_service:
