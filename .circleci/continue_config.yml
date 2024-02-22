@@ -12,19 +12,18 @@ parameters:
         default: false
 
 jobs:
-    build-supply:
+    run-build-supply:
         executor: node/default
         working_directory: ~/KabGo/servers/supply
         steps:
             - checkout:
-                  path: ~/KabGo
             - node/install-packages:
                   pkg-manager: npm
             - run:
               command: npm run build
 
 workflows:
-    supply-service:
+    build_supply_service:
         when: << pipeline.parameters.run-build-supply-service-job >>
         jobs:
-            - build-supply
+            - run-build-supply
