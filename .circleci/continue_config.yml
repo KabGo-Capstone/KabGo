@@ -29,9 +29,10 @@ jobs:
 
             - run: chmod +x ~/KabGo/scripts/deploy.sh
 
-            - run: sudo apt-get install sshpass -y
+            - add_ssh_keys
 
-            - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --port 24700 --service supply --pwd ums@_151002
+            - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "KabGo/scripts/deploy.sh --service supply"
+            # - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --port 24700 --service supply
 
 workflows:
     build_supply_service:
