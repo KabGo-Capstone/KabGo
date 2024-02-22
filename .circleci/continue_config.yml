@@ -6,21 +6,21 @@ orbs:
 parameters:
     run-build-supply-service-job:
         type: boolean
-        default: false
+        default: true
 
 jobs:
     run-build-supply:
         working_directory: ~/KabGo/servers/supply
         executor: node/default
         steps:
-            - checkout
-            - node/install-npm
+            - checkout:
+                  path: ~/KabGo
             - node/install-packages:
-              app-dir: ~/KabGo/servers/supply
-              cache-path: node_modules
-              override-ci-command: npm i
+                  app-dir: ~/KabGo/servers/supply
+                  cache-path: node_modules
+                  override-ci-command: npm i
             - run:
-              command: npm run build
+                  command: npm run build
 
 workflows:
     build_supply_service:
