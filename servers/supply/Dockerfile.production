@@ -6,11 +6,11 @@ COPY package*.json ./
 
 RUN npm ci
 
+COPY . .
+
 RUN npm run format-fix
 
 RUN npm run build
-
-COPY . .
 
 EXPOSE 5001
 
