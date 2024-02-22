@@ -24,10 +24,6 @@ jobs:
                   override-ci-command: npm i
             - run:
                   command: npm run build
-
-    deploy-supply-service:
-        working_directory: ~/KabGo/servers/supply
-        steps:
             - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
 
 workflows:
@@ -35,9 +31,6 @@ workflows:
         when: << pipeline.parameters.run-build-supply-service-job >>
         jobs:
             - run-build-supply
-            - deploy-supply-service:
-                  requires:
-                      - run-build-supply
 
     build_all_server_service:
         when: << pipeline.parameters.run-build-all-server-service-job >>
