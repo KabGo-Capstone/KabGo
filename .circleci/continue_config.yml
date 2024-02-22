@@ -31,7 +31,7 @@ jobs:
 
             - add_ssh_keys:
                   fingerprints:
-                      - "SHA256:HbP3ojPPxnWISPCpbzKsEEa7GSZ1VJlsG4d6sqTAMhs"
+                      - "SHA256:mubRTx/rWnPeI9OSRbwV/ig1rC0LpbYCgNsSqQ6ACPg"
 
             - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "KabGo/scripts/deploy.sh --service supply"
 
