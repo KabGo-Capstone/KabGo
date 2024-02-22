@@ -28,7 +28,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-rsync -avce ssh -p $VPS_PORT --delete ~/KabGo/servers/supply/dist "$USERNAME@$VPS_IP":/KabGo/servers/supply
 
 # Ensure all required parameters are provided
 if [[ -z $VPS_IP || -z $USERNAME || -z $VPS_PORT || -z $SERVICE ]]; then
