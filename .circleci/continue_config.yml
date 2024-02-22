@@ -31,7 +31,7 @@ jobs:
 
             - add_ssh_keys
 
-            - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --service supply
+            - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --port 24700 --service supply
 
 workflows:
     build_supply_service:
