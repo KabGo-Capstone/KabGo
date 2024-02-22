@@ -41,10 +41,10 @@ services:
         labels:
             - traefik.enable=true
             - traefik.docker.network=proxy
-            - traefik.http.routers.welegend.rule=Host(`kabgo-supply.mtech.id.vn`)
-            - traefik.http.routers.welegend.entrypoints=websecure
-            - traefik.http.routers.welegend.tls=true
-            - traefik.http.routers.welegend.tls.certresolver=le
+            - traefik.http.routers.supply-service.rule=Host(`kabgo-supply.mtech.id.vn`)
+            - traefik.http.routers.supply-service.entrypoints=websecure
+            - traefik.http.routers.supply-service.tls=true
+            - traefik.http.routers.supply-service.tls.certresolver=le
         restart: unless-stopped
 
     # rabbitmq:
