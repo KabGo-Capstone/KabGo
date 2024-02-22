@@ -19,6 +19,10 @@ while [[ $# -gt 0 ]]; do
             SERVICE="$2"
             shift 2
             ;;
+        --pwd)
+            PWD="$2"
+            shift 2
+            ;;
         *)
             echo "Invalid argument: $1"
             exit 1
@@ -36,12 +40,12 @@ fi
 echo "start pull and fix format"
 
 # SSH into the server and pull changes from the Git repository
-ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo && git pull origin main"
+sshpass -p $PWD ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo && git pull origin main"
 
 echo "start build and deploy"
 
 # Restart the application server (e.g., if using Node.js)
-ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d"
+sshpass -p $PWD ssh -o StrictHostKeyChecking=no -p $VPS_PORT "$USERNAME@$VPS_IP" "cd KabGo/docker-compose && docker compose down && docker compose -f docker-compose-prod.yml up $SERVICE -d"
 
 echo "Deploy successfully"
 
