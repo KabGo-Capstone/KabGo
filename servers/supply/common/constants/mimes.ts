@@ -3,7 +3,7 @@ const mimes = {
     gif: 'image/gif',
     jpg: 'image/jpeg',
     png: 'image/png',
-    svg: 'image/svg+xml'
-} as any;
+    svg: 'image/svg+xml',
+} as any
 
-export default mimes;
+export default mimes

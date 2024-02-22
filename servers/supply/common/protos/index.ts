@@ -1,4 +1,4 @@
-import * as grpc from '@grpc/grpc-js';
+import * as grpc from '@grpc/grpc-js'
 
 const DRIVERS = [
     {
@@ -11,7 +11,7 @@ const DRIVERS = [
         firstname: 'Khang',
         lastname: 'Dinh',
     },
-];
+]
 
 const findDriver = (call: any, callback: any) => {
     const driver = DRIVERS.find((driver) => driver.id === call.request.id)
@@ -25,4 +25,4 @@ const findDriver = (call: any, callback: any) => {
     }
 }
 
-export { findDriver as find }; 
+export { findDriver as find }

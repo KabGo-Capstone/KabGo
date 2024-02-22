@@ -1,9 +1,11 @@
-import { NextFunction, Request, Response } from "express"
+import { NextFunction, Request, Response } from 'express'
 
-const catchAsync = (callback: (req: Request, res: Response, next: NextFunction) => any) => {
+const catchAsync = (
+    callback: (req: Request, res: Response, next: NextFunction) => any
+) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        callback(req, res, next).catch((err: any) => next(err));
+        callback(req, res, next).catch((err: any) => next(err))
     }
 }
 
-export default catchAsync;
+export default catchAsync

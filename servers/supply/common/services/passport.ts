@@ -69,7 +69,7 @@
 //     let user = await UserModel.findOne({facebookID: profile.id})
 //     if (!user) {
 //         user = await UserModel.create({
-//             facebookID: profile.id,          
+//             facebookID: profile.id,
 //             username: profile.displayName,
 //             password : '',
 //             avatar: "https://graph.facebook.com/" + profile.id + "/picture" + "?width=200&height=200",
@@ -106,6 +106,5 @@
 // passport.use(googleStrategy);
 // passport.use(facebookStrategy);
 // passport.use(githubStrategy);
-
 
 // export default passport;

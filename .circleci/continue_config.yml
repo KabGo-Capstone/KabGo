@@ -1,0 +1,39 @@
+version: 2.1
+
+orbs:
+    node: circleci/node@5.2.0
+
+parameters:
+    run-build-supply-service-job:
+        type: boolean
+        default: false
+    run-build-service-2-job:
+        type: boolean
+        default: false
+
+jobs:
+    build-supply:
+        executor: node/default
+        working_directory: ~/KabGo/servers/supply
+        steps:
+            - checkout:
+                  path: ~/KabGo
+            - node/install-packages:
+                  pkg-manager: npm
+            - run:
+              command: npm run build
+
+workflows:
+    supply-service:
+        when: << pipeline.parameters.run-build-supply-service-job >>
+        jobs:
+            - build-supply
+    # when pipeline parameter, run-build-service-2-job is true, the
+    # build-service-2 job is triggered.
+    service-2:
+        when: << pipeline.parameters.run-build-service-2-job >>
+        jobs:
+            - maven/test:
+                  name: build-service-2
+                  command: "install -DskipTests"
+                  app_src_directory: "service2"
