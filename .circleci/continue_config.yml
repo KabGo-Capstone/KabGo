@@ -55,10 +55,11 @@ jobs:
             - attach_workspace:
                   at: .
 
+            - setup_remote_docker
+
             - run:
                   name: Build supply service
                   command: |
-                      sudo systemctl start docker
                       cd docker-compose
                       docker system prune -a -f
                       docker-compose -f docker-compose-prod.yml build
