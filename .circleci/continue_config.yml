@@ -201,7 +201,11 @@ jobs:
 
 workflows:
     build-publish-deploy-supply-service:
-        when: << pipeline.parameters.run-build-supply-service-job >>
+        when:
+            or: [
+                    << pipeline.parameters.run-build-supply-service-job >>
+                    << pipeline.parameters.run-build-all-server-service-job >>,
+                ]
         jobs:
             - supply-init-service
             - supply-check-lint:
@@ -215,7 +219,11 @@ workflows:
                       - supply-build-test-publish-service
 
     build-publish-deploy-demand-service:
-        when: << pipeline.parameters.run-build-demand-service-job >>
+        when:
+            or: [
+                    << pipeline.parameters.run-build-demand-service-job >>
+                    << pipeline.parameters.run-build-all-server-service-job >>,
+                ]
         jobs:
             - demand-init-service
             - demand-check-lint:
@@ -227,8 +235,3 @@ workflows:
             - demand-deploy-service:
                   requires:
                       - demand-build-test-publish-service
-
-    # build_all_server_service:
-    #     when: << pipeline.parameters.run-build-all-server-service-job >>
-    #     jobs:
-    #         - run-build-supply
