@@ -58,7 +58,7 @@ jobs:
                       docker-compose -f docker-compose-prod.yml build
 
     supply-test-service:
-        docker: node/default
+        executor: node/default
         working_directory: ~/KabGo
         steps:
             - attach_workspace:
