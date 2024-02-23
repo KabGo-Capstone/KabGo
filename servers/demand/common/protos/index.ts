@@ -1,4 +1,4 @@
-import * as grpc from '@grpc/grpc-js';
+import * as grpc from '@grpc/grpc-js'
 
 const CUSTOMERS = [
     {
@@ -11,10 +11,12 @@ const CUSTOMERS = [
         firstname: 'Khang',
         lastname: 'Dinh',
     },
-];
+]
 
 const findCustomer = (call: any, callback: any) => {
-    const customer = CUSTOMERS.find((customer) => customer.id == call.request.id)
+    const customer = CUSTOMERS.find(
+        (customer) => customer.id == call.request.id
+    )
     if (customer) {
         callback(null, customer)
     } else {
@@ -25,4 +27,4 @@ const findCustomer = (call: any, callback: any) => {
     }
 }
 
-export { findCustomer as find }; 
+export { findCustomer as find }

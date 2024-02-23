@@ -1,1 +1,1 @@
-export { default as ConnectEvent } from './connect.example.event';
+export { default as ConnectEvent } from './connect.example.event'
