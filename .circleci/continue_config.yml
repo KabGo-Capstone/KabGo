@@ -23,17 +23,16 @@ jobs:
                   cache-path: node_modules
                   override-ci-command: npm ci
 
+            - run:
+                  name: Run format code
+                  command: |
+                      cd servers/supply
+                      npm run format-fix
+
             - persist_to_workspace:
                   root: .
                   paths:
                       - ./servers/supply/node_modules
-
-            - attach_workspace:
-                  at: servers/supply
-
-            - run:
-                  name: Run format code
-                  command: npm run format-fix
 
     supply-check-lint:
         executor: node/default
@@ -44,7 +43,9 @@ jobs:
 
             - run:
                   name: Run check code standard
-                  command: npm run link-check
+                  command: |
+                      cd servers/supply
+                      npm run link-check
 
     supply-build-service:
         docker:
