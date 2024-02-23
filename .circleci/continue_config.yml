@@ -63,7 +63,7 @@ jobs:
                   command: |
                       cd docker-compose
                       docker system prune -a -f
-                      docker-compose -f docker-compose-prod.yml build
+                      docker-compose -f docker-compose-prod.yml build supply-service
 
     supply-test-service:
         executor: node/default
@@ -111,6 +111,9 @@ workflows:
             - supply-build-service:
                   requires:
                       - supply-check-lint
+            - supply-test-service:
+                  requires:
+                      - supply-build-service
 
     # build_all_server_service:
     #     when: << pipeline.parameters.run-build-all-server-service-job >>
