@@ -102,12 +102,9 @@ workflows:
             - supply-check-lint:
                   requires:
                       - supply-init-service
-            - supply-build-service:
+            - supply-build-test-service:
                   requires:
                       - supply-check-lint
-            - supply-test-service:
-                  requires:
-                      - supply-build-service
 
     # build_all_server_service:
     #     when: << pipeline.parameters.run-build-all-server-service-job >>
