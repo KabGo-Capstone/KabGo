@@ -15,7 +15,7 @@
         "sourceType": "module"
     },
     "plugins": ["@typescript-eslint"],
-    "ignorePatterns": ["dist/"],
+    "ignorePatterns": ["dist/", "__tests__"],
     "rules": {
         "no-console": "off",
         "no-unused-vars": "off",

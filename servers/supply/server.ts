@@ -54,3 +54,5 @@ process.on('unhandledRejection', (err: Error) => {
         })
     }, 3000)
 })
+
+export default server
