@@ -1,0 +1,19 @@
+FROM node:alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+COPY ./protos ../
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run format-fix
+
+RUN npm run build:prod
+
+EXPOSE 5001
+
+CMD ["npm", "run", "start"]

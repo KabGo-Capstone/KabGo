@@ -106,7 +106,11 @@ class Application {
         });
 
         this.app.get('/status', (req, res) => {
-            return res.json({ status: '200 - OK', message: 'Server is running ...' });
+            return res.json({
+                server: this.appName.replace(/\[(.*)\]/, '$1'),
+                status: '200 - OK',
+                message: 'Server is running ...',
+            })
         });
 
         this.app.all('*', (req, res, next) => {

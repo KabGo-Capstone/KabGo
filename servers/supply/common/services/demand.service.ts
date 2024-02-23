@@ -10,7 +10,7 @@ const demandProto = loadPackageDefinition(packageDefinitionReci)
 const demandService = demandProto.CustomerInfomations as any
 
 const demandsStub = new demandService(
-    '0.0.0.0:50052',
+    '0.0.0.0:50051',
     credentials.createInsecure()
 )
 

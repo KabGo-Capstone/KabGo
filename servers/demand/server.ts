@@ -1,16 +1,17 @@
-import Application from './common/app';
-import * as allController from './common/controllers';
-import * as allEvent from './common/events';
-import Logger from './common/utils/logger';
+import Application from './common/app'
+import * as allController from './common/controllers'
+import * as allEvent from './common/events'
+import supplysStub from './common/services/supply.service'
+import Logger from './common/utils/logger'
 
 process.on('uncaughtException', (err: Error) => {
-    Logger.error('Uncaught Exception. Shutting down...');
-    Logger.error(err.name, err.message, err.stack);
+    Logger.error('Uncaught Exception. Shutting down...')
+    Logger.error(err.name, err.message, err.stack)
 
-    setTimeout(() => { 
-        process.exit(1);
-    }, 3000);
-});
+    setTimeout(() => {
+        process.exit(1)
+    }, 3000)
+})
 
 const app = new Application({
     controllers: Object.values(allController),
@@ -26,17 +27,32 @@ const app = new Application({
         api_key: process.env.CLOUDINARY_API_KEY as string,
         api_secret: process.env.CLOUDINARY_API_SECRET as string,
     },
-});
+})
 
-const server = app.run();
+const server = app.run(() => {
+    supplysStub.find(
+        {
+            id: 'driver-1002',
+        },
+        (err: any, data: any) => {
+            if (err) {
+                Logger.error(err)
+            } else {
+                console.log(data)
+            }
+        }
+    )
+})
 
 process.on('unhandledRejection', (err: Error) => {
-    Logger.error('Unhandled Rejection. Shutting down...');
-    Logger.error(err.name, err.message, err.stack);
-    
-    setTimeout(() => { 
+    Logger.error('Unhandled Rejection. Shutting down...')
+    Logger.error(err.name, err.message, err.stack)
+
+    setTimeout(() => {
         server.close(() => {
-            process.exit(1);
-        });
-    }, 3000);
-});
+            process.exit(1)
+        })
+    }, 3000)
+})
+
+export default server

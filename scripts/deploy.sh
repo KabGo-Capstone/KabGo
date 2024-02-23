@@ -27,16 +27,10 @@ fi
 
 echo "start pull"
 
-# SSH into the server and pull changes from the Git repository
 cd ~/KabGo && git pull origin main
 
 echo "start build and deploy"
 
-# cd ~/KabGo/$SERVICE_PATH && cp -r ../protos ./protos
-
-# Restart the application server (e.g., if using Node.js)
-cd ~/KabGo/docker-compose && docker compose -f docker-compose-prod.yml pull $SERVICE && docker compose -f docker-compose-prod.yml up $SERVICE -d
-
-# cd ~/KabGo/$SERVICE_PATH && rm -rf protos
+cd ~/KabGo/docker-compose && docker compose -f docker-compose-prod.yml down $SERVICE && docker compose -f docker-compose-prod.yml pull $SERVICE && docker compose -f docker-compose-prod.yml up $SERVICE -d
 
 echo "Deploy successfully"
