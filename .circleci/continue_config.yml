@@ -30,9 +30,9 @@ jobs:
                       npm run format-fix
 
             - persist_to_workspace:
-                  root: .
+                  root: ~/KabGo
                   paths:
-                      - ./servers/supply/node_modules
+                      - ~/KabGo
 
     supply-check-lint:
         executor: node/default
