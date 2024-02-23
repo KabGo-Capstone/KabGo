@@ -45,7 +45,7 @@ jobs:
                   name: Run check code standard
                   command: |
                       cd servers/supply
-                      npm run link-check
+                      npm run lint-check
 
     supply-build-service:
         docker:
@@ -53,11 +53,12 @@ jobs:
         working_directory: ~/KabGo
         steps:
             - attach_workspace:
-                  at: servers/docker-compose
+                  at: .
 
             - run:
                   name: Run build supply service
                   command: |
+                      cd docker-compose
                       docker system prune -a -y
                       docker-compose -f docker-compose-prod.yml build
 
@@ -66,10 +67,12 @@ jobs:
         working_directory: ~/KabGo
         steps:
             - attach_workspace:
-                  at: servers/supply
+                  at: .
             - run:
                   name: Run health check supply service
-                  command: npm run test
+                  command: |
+                      cd servers/supply
+                      npm run test
 
     # build-supply-service:
     #     working_directory: ~/KabGo/servers/supply
