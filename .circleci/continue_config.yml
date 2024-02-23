@@ -24,7 +24,7 @@ jobs:
                   override-ci-command: npm ci
 
             - run:
-                  name: Run format code
+                  name: Format & clean code
                   command: |
                       cd servers/supply
                       npm run format-fix
@@ -42,7 +42,7 @@ jobs:
                   at: .
 
             - run:
-                  name: Run check code standard
+                  name: Check code standard
                   command: |
                       cd servers/supply
                       npm run lint-check
@@ -56,8 +56,9 @@ jobs:
                   at: .
 
             - run:
-                  name: Run build supply service
+                  name: Build supply service
                   command: |
+                      sudo systemctl start docker
                       cd docker-compose
                       docker system prune -a -f
                       docker-compose -f docker-compose-prod.yml build
@@ -69,7 +70,7 @@ jobs:
             - attach_workspace:
                   at: .
             - run:
-                  name: Run health check supply service
+                  name: Health check supply service
                   command: |
                       cd servers/supply
                       npm run test
