@@ -63,6 +63,7 @@ jobs:
                   command: |
                       cd docker-compose
                       docker system prune -a -f
+                      docker network create -d proxy
                       docker-compose -f docker-compose-prod.yml build supply-service
 
             - run:
