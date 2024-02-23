@@ -74,8 +74,9 @@ jobs:
             - run:
                   name: Health check supply service
                   command: |
-                      cd servers/supply
-                      npm run test
+                      cd docker-compose
+                      docker-compose up supply-service -d
+                      docker-compose run supply-service npm run test
 
     # build-supply-service:
     #     working_directory: ~/KabGo/servers/supply
@@ -101,7 +102,7 @@ jobs:
     #         # - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --port 24700 --service supply
 
 workflows:
-    build_supply_service:
+    build-publish-deploy-supply-service:
         when: << pipeline.parameters.run-build-supply-service-job >>
         jobs:
             - supply-init-service
