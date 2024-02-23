@@ -48,7 +48,7 @@ jobs:
                       cd servers/supply
                       npm run lint-check
 
-    supply-build-service:
+    supply-build-test-service:
         docker:
             - image: cimg/base:current-22.04
         working_directory: ~/KabGo
@@ -65,19 +65,9 @@ jobs:
                       docker system prune -a -f
                       docker-compose -f docker-compose-prod.yml build supply-service
 
-    supply-test-service:
-        executor: node/default
-        working_directory: ~/KabGo
-        steps:
-            - attach_workspace:
-                  at: .
-
-            - setup_remote_docker
-
             - run:
                   name: Health check supply service
                   command: |
-                      cd docker-compose
                       docker-compose -f docker-compose-prod.yml up supply-service -d
                       docker-compose -f docker-compose-prod.yml run supply-service npm run test
 
