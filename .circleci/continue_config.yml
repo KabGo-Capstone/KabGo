@@ -48,7 +48,7 @@ jobs:
                       cd servers/supply
                       npm run lint-check
 
-    supply-build-test-service:
+    supply-build-test-publish-service:
         docker:
             - image: cimg/base:current-22.04
         working_directory: ~/KabGo
@@ -63,7 +63,7 @@ jobs:
                   command: |
                       cd docker-compose
                       docker system prune -a -f
-                      docker network create -d proxy
+                      docker network create proxy
                       docker-compose -f docker-compose-prod.yml build supply-service
 
             - run:
@@ -104,7 +104,7 @@ workflows:
             - supply-check-lint:
                   requires:
                       - supply-init-service
-            - supply-build-test-service:
+            - supply-build-test-publish-service:
                   requires:
                       - supply-check-lint
 
