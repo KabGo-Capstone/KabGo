@@ -80,6 +80,17 @@ jobs:
                       docker login -u ${DOCKER_ACCOUNT} -p ${DOCKER_TOKEN}
                       docker-compose -f docker-compose-prod.yml push supply-service
 
+        supply-deploy-service:
+            docker:
+                - image: cimg/base:current-22.04
+            working_directory: ~/KabGo
+            steps:
+                - add_ssh_keys:
+                      fingerprints:
+                          - ${VPS_FINGERPRINT}
+
+                - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "chmod +x ~/KabGo/scripts/deploy.sh && ~/KabGo/scripts/deploy.sh --service supply-service --service-path servers/supply"
+
     # build-supply-service:
     #     working_directory: ~/KabGo/servers/supply
     #     executor: node/default
