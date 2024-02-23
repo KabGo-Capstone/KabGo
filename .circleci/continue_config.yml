@@ -59,7 +59,7 @@ jobs:
                   name: Run build supply service
                   command: |
                       cd docker-compose
-                      docker system prune -a -y
+                      docker system prune -a -f
                       docker-compose -f docker-compose-prod.yml build
 
     supply-test-service:
