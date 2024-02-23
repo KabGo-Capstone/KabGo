@@ -27,6 +27,7 @@ services:
         build:
             context: ../servers/supply
             dockerfile: Dockerfile.production
+        image: wgmin/supply-service
         container_name: supply-service
         hostname: localhost
         networks:

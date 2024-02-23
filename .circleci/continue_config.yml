@@ -64,7 +64,7 @@ jobs:
                       cd docker-compose
                       docker system prune -a -f
                       docker network create proxy
-                      docker-compose -f docker-compose-prod.yml build supply-service
+                      docker-compose -f docker-compose-prod.yml build supply-service --pull
 
             - run:
                   name: Health check supply service
@@ -72,6 +72,13 @@ jobs:
                       cd docker-compose
                       docker-compose -f docker-compose-prod.yml up supply-service -d
                       docker-compose -f docker-compose-prod.yml run supply-service npm run test
+
+            - run:
+                  name: Publish supply-service to docker hub
+                  command: |
+                      cd docker-compose
+                      docker login -u ${DOCKER_ACCOUNT} -p ${DOCKER_TOKEN}
+                      docker-compose -f docker-compose-prod.yml push supply-service
 
     # build-supply-service:
     #     working_directory: ~/KabGo/servers/supply
