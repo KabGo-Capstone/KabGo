@@ -68,6 +68,7 @@ jobs:
             - run:
                   name: Health check supply service
                   command: |
+                      cd docker-compose
                       docker-compose -f docker-compose-prod.yml up supply-service -d
                       docker-compose -f docker-compose-prod.yml run supply-service npm run test
 
