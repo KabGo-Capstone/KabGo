@@ -43,7 +43,7 @@ jobs:
 
     supply-build-service:
         docker:
-            image: cimg/base:current-22.04
+            - image: cimg/base:current-22.04
         working_directory: ~/KabGo
         steps:
             - attach_workspace:
