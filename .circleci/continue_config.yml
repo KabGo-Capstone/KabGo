@@ -30,7 +30,7 @@ jobs:
                       npm run format-fix
 
             - persist_to_workspace:
-                  root: ~/KabGo
+                  root: .
                   paths:
                       - .
 
@@ -39,7 +39,7 @@ jobs:
         working_directory: ~/KabGo
         steps:
             - attach_workspace:
-                  at: servers/supply
+                  at: .
 
             - run:
                   name: Run check code standard
