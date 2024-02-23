@@ -26,6 +26,7 @@ jobs:
             - run:
                   name: Format & clean code
                   command: |
+                      cp -r ../protos ./
                       cd servers/supply
                       npm run format-fix
 

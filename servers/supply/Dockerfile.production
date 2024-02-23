@@ -12,7 +12,7 @@ COPY . .
 
 RUN npm run format-fix
 
-RUN npm run build
+RUN npm run build:prod
 
 EXPOSE 5002
 
