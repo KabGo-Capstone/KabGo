@@ -26,8 +26,8 @@ jobs:
             - run:
                   name: Format & clean code
                   command: |
-                      cp -r ../protos ./
                       cd servers/supply
+                      cp -r ../protos ./
                       npm run format-fix
 
             - persist_to_workspace:
