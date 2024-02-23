@@ -30,7 +30,6 @@ const app = new Application({
 })
 
 const server = app.run(() => {
-    console.log('run grpc')
     supplysStub.find(
         {
             id: 'driver-1002',

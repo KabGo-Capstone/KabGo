@@ -30,7 +30,6 @@ const app = new Application({
 })
 
 const server = app.run(() => {
-    console.log('run grpc')
     demandsStub.find(
         {
             id: 'customer-1002',
