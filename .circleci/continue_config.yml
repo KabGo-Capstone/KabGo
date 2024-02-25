@@ -30,8 +30,9 @@ jobs:
             - run:
                   name: "Generate grpc proto boilerplate"
                   command: |
-                      cd ./servers
-                      npm run proto:generate
+                      cd ./servers/grpc
+                      chmod +x ./build.sh
+                      ./build.sh
 
             - persist_to_workspace:
                   root: .

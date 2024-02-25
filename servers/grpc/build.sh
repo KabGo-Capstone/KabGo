@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PROTO_DIR=~/KabGo/servers/grpc/protos
-SOURCE_DIR=~/KabGo/servers/grpc/proto_pb
+PROTO_DIR=./protos
+SOURCE_DIR=./proto_pb
 # PROTOC_GEN_TS_PATH=./node_modules/.bin/protoc-gen-ts_proto
 # PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts_proto"
 # PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
@@ -24,7 +24,9 @@ SOURCE_DIR=~/KabGo/servers/grpc/proto_pb
 #     esac
 # done
 
-npx grpc_tools_node_protoc \
+ls -la .
+
+sudo npx grpc_tools_node_protoc \
     --grpc_out="grpc_js:${SOURCE_DIR}" \
     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
     --ts_out="grpc_js:${SOURCE_DIR}"  \
