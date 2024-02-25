@@ -15,37 +15,13 @@ parameters:
         default: false
 
 jobs:
-    # COMMONDS BUILD
-    common-init:
-        executor: node/default
-        working_directory: ~/KabGo
-        steps:
-            - checkout
-
-            - node/install-packages:
-                  app-dir: ~/KabGo/servers
-                  cache-path: node_modules
-                  override-ci-command: npm ci
-
-            - run:
-                  name: "Generate grpc proto boilerplate"
-                  command: |
-                      cd servers
-                      npm run proto:generate
-
-            - persist_to_workspace:
-                  root: .
-                  paths:
-                      - .
-
     # SUPPLY CI/CD
 
     supply-init-service:
         executor: node/default
         working_directory: ~/KabGo
         steps:
-            - attach_workspace:
-                  at: .
+            - checkout
 
             - node/install-packages:
                   app-dir: ~/KabGo/servers/supply
@@ -127,8 +103,7 @@ jobs:
         executor: node/default
         working_directory: ~/KabGo
         steps:
-            - attach_workspace:
-                  at: .
+            - checkout
 
             - node/install-packages:
                   app-dir: ~/KabGo/servers/demand
@@ -212,19 +187,16 @@ workflows:
                     << pipeline.parameters.run-build-all-server-service-job >>,
                 ]
         jobs:
-            - common-init
-            # - supply-init-service:
-            #       requires:
-            #           - common-init
-            # - supply-check-lint:
-            #       requires:
-            #           - supply-init-service
-            # - supply-build-test-publish-service:
-            #       requires:
-            #           - supply-check-lint
-            # - supply-deploy-service:
-            #       requires:
-            #           - supply-build-test-publish-service
+            - supply-init-service
+            - supply-check-lint:
+                  requires:
+                      - supply-init-service
+            - supply-build-test-publish-service:
+                  requires:
+                      - supply-check-lint
+            - supply-deploy-service:
+                  requires:
+                      - supply-build-test-publish-service
 
     build-publish-deploy-demand-service:
         when:
@@ -233,16 +205,13 @@ workflows:
                     << pipeline.parameters.run-build-all-server-service-job >>,
                 ]
         jobs:
-            - common-init
-            # - demand-init-service:
-            #       requires:
-            #           - common-init
-            # - demand-check-lint:
-            #       requires:
-            #           - demand-init-service
-            # - demand-build-test-publish-service:
-            #       requires:
-            #           - demand-check-lint
-            # - demand-deploy-service:
-            #       requires:
-            #           - demand-build-test-publish-service
+            - demand-init-service
+            - demand-check-lint:
+                  requires:
+                      - demand-init-service
+            - demand-build-test-publish-service:
+                  requires:
+                      - demand-check-lint
+            - demand-deploy-service:
+                  requires:
+                      - demand-build-test-publish-service
