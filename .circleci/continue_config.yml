@@ -31,10 +31,9 @@ jobs:
             - run:
                   name: Format & clean code
                   command: |
-                      cd servers/supply
-                      cp -r ../grpc ./
-                      cp -r ../package*.json ./grpc
-                      npm run format-fix
+                      cd servers
+                      cp -r ./package*.json ./grpc
+                      cp -r ./grpc ./supply
 
             - persist_to_workspace:
                   root: .
@@ -113,10 +112,9 @@ jobs:
             - run:
                   name: Format & clean code
                   command: |
-                      cd servers/demand
-                      cp -r ../grpc ./
-                      cp -r ../package*.json ./grpc
-                      npm run format-fix
+                      cd servers
+                      cp -r ./package*.json ./grpc
+                      cp -r ./grpc ./demand
 
             - persist_to_workspace:
                   root: .
