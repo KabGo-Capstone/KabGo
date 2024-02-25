@@ -32,6 +32,7 @@ jobs:
                   name: Format & clean code
                   command: |
                       cd servers
+                      npm run proto:generate
                       cp -r ./package*.json ./grpc
                       cp -r ./grpc ./supply
 
@@ -113,6 +114,7 @@ jobs:
                   name: Format & clean code
                   command: |
                       cd servers
+                      npm run proto:generate
                       cp -r ./package*.json ./grpc
                       cp -r ./grpc ./demand
 
