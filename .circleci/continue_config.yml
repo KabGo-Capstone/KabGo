@@ -32,10 +32,11 @@ jobs:
                   command: |
                       cd ./servers/grpc
                       npx grpc_tools_node_protoc \
+                        --plugin=protoc-gen-ts=$(npm bin)/protoc-gen-ts \
                         --grpc_out="grpc_js:./proto_pb" \
                         --js_out="import_style=commonjs,binary:./proto_pb" \
                         --ts_out="grpc_js:./proto_pb"  \
-                        --proto_path ./protos "./protos/*.proto"
+                        --proto_path "./protos" -I="./" "./protos/*.proto"
 
             - persist_to_workspace:
                   root: .
