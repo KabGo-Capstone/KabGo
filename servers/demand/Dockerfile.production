@@ -1,5 +1,15 @@
 FROM node:alpine
 
+WORKDIR /usr/src/grpc
+
+COPY ./grpc ./
+
+COPY ./grpc/package*.json ../
+
+WORKDIR /usr/src
+
+RUN npm ci
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
@@ -8,30 +18,10 @@ RUN npm ci
 
 COPY . .
 
-
-WORKDIR /usr/src/grpc
-
-COPY ./grpc ./
-
-COPY ./grpc/package*.json ../
-
-
-WORKDIR /usr/src
-
-RUN npm ci
-
-RUN sh ./grpc/build.sh
-
-RUN cp -r ./grpc ./app
-
-
-WORKDIR /usr/src/app
-
 RUN npm run format-fix
 
 RUN npm run build:prod
 
-
-EXPOSE 5001
+EXPOSE 5002
 
 CMD ["npm", "run", "start"]

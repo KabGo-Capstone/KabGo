@@ -15,18 +15,12 @@ parameters:
         default: false
 
 jobs:
-    # SUPPLY CI/CD
-
-    supply-init-service:
+    # COMMONDS BUILD
+    common-init:
         executor: node/default
         working_directory: ~/KabGo
         steps:
             - checkout
-
-            - node/install-packages:
-                  app-dir: ~/KabGo/servers/supply
-                  cache-path: node_modules
-                  override-ci-command: npm ci
 
             - node/install-packages:
                   app-dir: ~/KabGo/servers
@@ -34,12 +28,38 @@ jobs:
                   override-ci-command: npm ci
 
             - run:
+                  name: "Generate grpc proto boilerplate"
+                  command: |
+                      cd servers/grpc
+                      chmod +x ./build.sh
+                      ./build.sh
+
+            - persist_to_workspace:
+                  root: .
+                  paths:
+                      - .
+
+    # SUPPLY CI/CD
+
+    supply-init-service:
+        executor: node/default
+        working_directory: ~/KabGo
+        steps:
+            - attach_workspace:
+                  at: .
+
+            - node/install-packages:
+                  app-dir: ~/KabGo/servers/supply
+                  cache-path: node_modules
+                  override-ci-command: npm ci
+
+            - run:
                   name: Format & clean code
                   command: |
-                      cd servers
-                      ls ./grpc
-                      cp -r ./package*.json ./grpc
-                      cp -r ./grpc ./supply
+                      cd servers/supply
+                      cp -r ../grpc ./
+                      cp -r ../package*.json ./grpc
+                      npm run format-fix
 
             - persist_to_workspace:
                   root: .
@@ -108,7 +128,8 @@ jobs:
         executor: node/default
         working_directory: ~/KabGo
         steps:
-            - checkout
+            - attach_workspace:
+                  at: .
 
             - node/install-packages:
                   app-dir: ~/KabGo/servers/demand
@@ -118,10 +139,10 @@ jobs:
             - run:
                   name: Format & clean code
                   command: |
-                      cd servers
-                      npm run proto:generate
-                      cp -r ./package*.json ./grpc
-                      cp -r ./grpc ./demand
+                      cd servers/demand
+                      cp -r ../grpc ./
+                      cp -r ../package*.json ./grpc
+                      npm run format-fix
 
             - persist_to_workspace:
                   root: .
@@ -192,7 +213,10 @@ workflows:
                     << pipeline.parameters.run-build-all-server-service-job >>,
                 ]
         jobs:
-            - supply-init-service
+            - common-init
+            # - supply-init-service:
+            #       requires:
+            #           - common-init
             # - supply-check-lint:
             #       requires:
             #           - supply-init-service
@@ -210,7 +234,10 @@ workflows:
                     << pipeline.parameters.run-build-all-server-service-job >>,
                 ]
         jobs:
-            - demand-init-service
+            - common-init
+            # - demand-init-service:
+            #       requires:
+            #           - common-init
             # - demand-check-lint:
             #       requires:
             #           - demand-init-service
