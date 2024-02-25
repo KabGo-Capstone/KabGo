@@ -27,11 +27,11 @@ RUN cp -r ./grpc ./app/grpc
 
 WORKDIR /usr/src/app
 
-# RUN npm run format-fix
+RUN npm run format-fix
 
-# RUN npm run build:prod
+RUN npm run build:prod
 
 
 EXPOSE 5001
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]
