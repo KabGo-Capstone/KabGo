@@ -1,9 +1,9 @@
 #!/bin/bash
 
-PROTO_DIR=./grpc/protos
-SOURCE_DIR=./grpc/proto_pb
-# PROTOC_GEN_TS_PATH=./node_modules/.bin/protoc-gen-ts_proto
-# PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts_proto"
+PROTO_DIR=grpc/protos
+SOURCE_DIR=grpc/proto_pb
+PROTOC_GEN_TS_PATH=./node_modules/.bin/protoc-gen-ts_proto
+PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts_proto"
 # PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
 
 #Parse command line arguments or use default values
@@ -26,24 +26,27 @@ SOURCE_DIR=./grpc/proto_pb
 
 npx grpc_tools_node_protoc \
     --grpc_out="grpc_js:${SOURCE_DIR}" \
-    --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
+    --js_out=import_style=commonjs,binary:${SOURCE_DIR} \
     --ts_out="grpc_js:${SOURCE_DIR}"  \
-    --proto_path "${PROTO_DIR}" \
-    "${PROTO_DIR}/*.proto"
+    -I ./grpc/protos \
+    grpc/protos/*.proto
 
-# Iterate over each file in the source directory
+# npx grpc_tools_node_protoc \
+#     --grpc_out="grpc_js:${SOURCE_DIR}" \
+#     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
+#     --ts_out="grpc_js:${SOURCE_DIR}"  \
+#     --proto_path "${PROTO_DIR}" \
+#     "${PROTO_DIR}/*.proto"
+
+#Iterate over each file in the source directory
 for file in "$SOURCE_DIR"/*; do
     if [[ -f "$file" ]]; then
         filename=$(basename -- "$file")
         extension="${filename##*.}"
         filename_no_ext="${filename%.*}"
+        folder="${filename%%_*}"  
 
-        # Determine folder name dynamically
-        folder="${filename%%_*}"  # Extract the substring before the first underscore
-
-        if [[ ! -d "${SOURCE_DIR}/${folder}" && $folder != *.* ]]; then
-            mkdir -p "${SOURCE_DIR}/${folder}"
-        fi
+        mkdir -p $SOURCE_DIR/$folder
 
         if [[ $filename == *_grpc_pb.* ]]; then
             mv "$file" "$SOURCE_DIR/$folder/${filename_no_ext}.${extension}"
