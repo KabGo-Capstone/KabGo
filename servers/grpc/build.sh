@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PROTO_DIR=grpc/protos
-SOURCE_DIR=grpc/proto_pb
+PROTO_DIR=servers/grpc/protos
+SOURCE_DIR=servers/grpc/proto_pb
 # PROTOC_GEN_TS_PATH=./node_modules/.bin/protoc-gen-ts_proto
 # PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts_proto"
 # PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
@@ -28,7 +28,7 @@ npx grpc_tools_node_protoc \
     --grpc_out="grpc_js:${SOURCE_DIR}" \
     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
     --ts_out="grpc_js:${SOURCE_DIR}"  \
-    -I ./grpc/protos "${PROTO_DIR}/*.proto"
+    -I ./servers/grpc/protos "${PROTO_DIR}/*.proto"
 
 # Iterate over each file in the source directory
 for file in "$SOURCE_DIR"/*; do
