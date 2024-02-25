@@ -1,28 +1,28 @@
 #!/bin/bash
 
-PROTO_DIR=./protos
-SOURCE_DIR=./proto_pb
+PROTO_DIR=./grpc/protos
+SOURCE_DIR=./grpc/proto_pb
 # PROTOC_GEN_TS_PATH=./node_modules/.bin/protoc-gen-ts_proto
 # PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts_proto"
 # PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
 
 #Parse command line arguments or use default values
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --proto-dir)
-            PROTO_DIR="$2"
-            shift 2
-            ;;
-        --source-dir)
-            SOURCE_DIR="$2"
-            shift 2
-            ;;
-        *)
-            echo "Invalid argument: $1"
-            exit 1
-            ;;
-    esac
-done
+# while [[ $# -gt 0 ]]; do
+#     case "$1" in
+#         --proto-dir)
+#             PROTO_DIR="$2"
+#             shift 2
+#             ;;
+#         --source-dir)
+#             SOURCE_DIR="$2"
+#             shift 2
+#             ;;
+#         *)
+#             echo "Invalid argument: $1"
+#             exit 1
+#             ;;
+#     esac
+# done
 
 ls -la .
 
