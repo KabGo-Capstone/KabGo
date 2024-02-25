@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PROTO_DIR=KabGo/servers/grpc/protos
-SOURCE_DIR=KabGo/servers/grpc/proto_pb
+PROTO_DIR=grpc/protos
+SOURCE_DIR=grpc/proto_pb
 PROTOC_GEN_TS_PATH=./node_modules/.bin/protoc-gen-ts_proto
 PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts_proto"
 # PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"

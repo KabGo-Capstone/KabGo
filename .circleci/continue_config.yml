@@ -28,11 +28,15 @@ jobs:
                   cache-path: node_modules
                   override-ci-command: npm ci
 
+            - node/install-packages:
+                  app-dir: ~/KabGo/servers
+                  cache-path: node_modules
+                  override-ci-command: npm ci
+
             - run:
                   name: Format & clean code
                   command: |
                       cd servers
-                      npm ci
                       npm run proto:generate
                       cp -r ./package*.json ./grpc
                       cp -r ./grpc ./supply
