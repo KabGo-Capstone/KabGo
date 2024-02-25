@@ -22,7 +22,7 @@ RUN npm ci
 
 RUN npm run proto:generate
 
-RUN cp -r ./grpc ./app/grpc
+RUN cp -r ./grpc ./app
 
 
 WORKDIR /usr/src/app
