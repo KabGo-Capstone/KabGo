@@ -32,10 +32,10 @@ jobs:
                   command: |
                       cd ./servers/grpc
                       npx grpc_tools_node_protoc \
-                        --grpc_out="grpc_js:./servers/grpc/proto_pb" \
-                        --js_out="import_style=commonjs,binary:./servers/grpc/proto_pb" \
-                        --ts_out="grpc_js:./servers/grpc/proto_pb"  \
-                        --proto_path ./servers/grpc/protos "./servers/grpc/protos/*.proto"
+                        --grpc_out="grpc_js:./proto_pb" \
+                        --js_out="import_style=commonjs,binary:./proto_pb" \
+                        --ts_out="grpc_js:./proto_pb"  \
+                        --proto_path ./protos "./protos/*.proto"
 
             - persist_to_workspace:
                   root: .
