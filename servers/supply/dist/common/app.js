@@ -32,6 +32,7 @@ const redis_1 = __importDefault(require("./services/redis"));
 const cloudinary_1 = __importDefault(require("./services/cloudinary"));
 const logger_1 = __importDefault(require("./utils/logger"));
 const grpc_1 = __importDefault(require("./services/grpc"));
+const demand_service_1 = __importDefault(require("./services/demand.service"));
 class Application {
     constructor(options) {
         this.controllers = [];
@@ -119,6 +120,7 @@ class Application {
             try {
                 logger_1.default.info(chalk_1.default.green(`Server is running on port ${chalk_1.default.cyan(availablePort)}`));
                 grpc_1.default.start();
+                demand_service_1.default.connect();
                 socket_1.default.init(server);
                 const io = socket_1.default.getIO();
                 io.on('connection', (socket) => {

@@ -29,7 +29,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./common/app"));
 const allController = __importStar(require("./common/controllers"));
 const allEvent = __importStar(require("./common/events"));
-const demand_service_1 = __importDefault(require("./common/services/demand.service"));
 const logger_1 = __importDefault(require("./common/utils/logger"));
 process.on('uncaughtException', (err) => {
     logger_1.default.error('Uncaught Exception. Shutting down...');
@@ -53,18 +52,7 @@ const app = new app_1.default({
         api_secret: process.env.CLOUDINARY_API_SECRET,
     },
 });
-const server = app.run(() => {
-    demand_service_1.default.find({
-        id: 'customer-1002',
-    }, (err, data) => {
-        if (err) {
-            logger_1.default.error(err);
-        }
-        else {
-            console.log(data);
-        }
-    });
-});
+const server = app.run();
 process.on('unhandledRejection', (err) => {
     logger_1.default.error('Unhandled Rejection. Shutting down...');
     logger_1.default.error(err);

@@ -23,7 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.find = void 0;
+exports.DriverInfomations = void 0;
+const supply_pb_1 = require("../../../grpc/proto_pb/supply/supply_pb");
 const grpc = __importStar(require("@grpc/grpc-js"));
 const DRIVERS = [
     {
@@ -37,16 +38,22 @@ const DRIVERS = [
         lastname: 'Dinh',
     },
 ];
-const findDriver = (call, callback) => {
-    const driver = DRIVERS.find((driver) => driver.id === call.request.id);
-    if (driver) {
-        callback(null, driver);
+class DriverInfomations {
+    find(call, callback) {
+        const driver = DRIVERS.find((driver) => driver.id === call.request.getId());
+        if (driver) {
+            const driverInfo = new supply_pb_1.DriverInfomation()
+                .setId(driver.id)
+                .setFirstname(driver.firstname)
+                .setLastname(driver.lastname);
+            callback(null, driverInfo);
+        }
+        else {
+            callback({
+                message: 'driver not found',
+                code: grpc.status.INVALID_ARGUMENT,
+            }, null);
+        }
     }
-    else {
-        callback({
-            message: 'driver not found',
-            code: grpc.status.INVALID_ARGUMENT,
-        });
-    }
-};
-exports.find = findDriver;
+}
+exports.DriverInfomations = DriverInfomations;

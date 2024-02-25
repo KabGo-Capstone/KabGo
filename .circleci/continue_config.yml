@@ -57,6 +57,7 @@ jobs:
                   command: |
                       cd servers/supply
                       cp -r ../grpc ./
+                      cp -r ../package.json ./grpc
                       npm run format-fix
 
             - persist_to_workspace:
@@ -139,6 +140,7 @@ jobs:
                   command: |
                       cd servers/demand
                       cp -r ../grpc ./
+                      cp -r ../package.json ./grpc
                       npm run format-fix
 
             - persist_to_workspace:
