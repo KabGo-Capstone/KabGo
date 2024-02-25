@@ -30,8 +30,8 @@ jobs:
             - run:
                   name: "Generate grpc proto boilerplate"
                   command: |
-                      chmod +x ./servers/grpc/build.sh
                       cd ./servers/grpc
+                      chmod +x ./build.sh
                       ./build.sh
 
             - persist_to_workspace:

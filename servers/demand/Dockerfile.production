@@ -1,8 +1,12 @@
 FROM node:alpine
 
-WORKDIR /usr/src
+WORKDIR /usr/src/grpc
 
-COPY ./grpc/package*.json ./
+COPY ./grpc ./
+
+COPY ./grpc/package*.json ../
+
+WORKDIR /usr/src
 
 RUN npm ci
 
@@ -17,8 +21,6 @@ COPY . .
 RUN npm run format-fix
 
 RUN npm run build:prod
-
-COPY ./grpc ../
 
 EXPOSE 5002
 
