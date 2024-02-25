@@ -18,8 +18,6 @@ RUN npm ci
 
 COPY . .
 
-RUN rm -rf ./grpc
-
 RUN npm run format-fix
 
 RUN npm run build:prod
