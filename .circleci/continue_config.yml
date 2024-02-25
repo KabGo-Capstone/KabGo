@@ -38,6 +38,7 @@ jobs:
                   command: |
                       cd servers
                       npm run proto:generate
+                      ls ./grpc
                       cp -r ./package*.json ./grpc
                       cp -r ./grpc ./supply
 
