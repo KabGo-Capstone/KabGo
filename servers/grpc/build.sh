@@ -6,29 +6,29 @@ SOURCE_DIR=./proto_pb
 # PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts_proto"
 # PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
 
-# Parse command line arguments or use default values
-# while [[ $# -gt 0 ]]; do
-#     case "$1" in
-#         --proto-dir)
-#             PROTO_DIR="$2"
-#             shift 2
-#             ;;
-#         --source-dir)
-#             SOURCE_DIR="$2"
-#             shift 2
-#             ;;
-#         *)
-#             echo "Invalid argument: $1"
-#             exit 1
-#             ;;
-#     esac
-# done
+Parse command line arguments or use default values
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --proto-dir)
+            PROTO_DIR="$2"
+            shift 2
+            ;;
+        --source-dir)
+            SOURCE_DIR="$2"
+            shift 2
+            ;;
+        *)
+            echo "Invalid argument: $1"
+            exit 1
+            ;;
+    esac
+done
 
 npx grpc_tools_node_protoc \
     --grpc_out="grpc_js:${SOURCE_DIR}" \
     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
     --ts_out="grpc_js:${SOURCE_DIR}"  \
-    --proto_path "${PROTO_DIR}" -I protos "protos/*.proto"
+    --proto_path "${PROTO_DIR}" -Iprotos "protos/*.proto"
 
 # Iterate over each file in the source directory
 for file in "$SOURCE_DIR"/*; do
