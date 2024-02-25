@@ -26,7 +26,7 @@ SOURCE_DIR=./proto_pb
 
 ls -la .
 
-sudo npx grpc_tools_node_protoc \
+grpc_tools_node_protoc \
     --grpc_out="grpc_js:${SOURCE_DIR}" \
     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
     --ts_out="grpc_js:${SOURCE_DIR}"  \
