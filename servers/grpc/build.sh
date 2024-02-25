@@ -29,8 +29,7 @@ npx grpc_tools_node_protoc \
     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
     --ts_out="grpc_js:${SOURCE_DIR}"  \
     --proto_path "${PROTO_DIR}" \
-    -I ${PROTO_DIR} \
-    "protos/*.proto"
+    "${PROTO_DIR}/*.proto"
 
 # Iterate over each file in the source directory
 for file in "$SOURCE_DIR"/*; do
