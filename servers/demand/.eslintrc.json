@@ -15,7 +15,7 @@
         "sourceType": "module"
     },
     "plugins": ["@typescript-eslint"],
-    "ignorePatterns": ["dist/", "__tests__"],
+    "ignorePatterns": ["dist/", "__tests__/", "grpc/"],
     "rules": {
         "no-console": "off",
         "no-unused-vars": "off",

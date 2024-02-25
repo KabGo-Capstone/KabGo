@@ -138,7 +138,7 @@ jobs:
                   name: Format & clean code
                   command: |
                       cd servers/demand
-                      cp -r ../protos ./
+                      cp -r ../grpc ./
                       npm run format-fix
 
             - persist_to_workspace:
