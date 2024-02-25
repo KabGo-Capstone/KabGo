@@ -24,6 +24,7 @@ import cloudinary from './services/cloudinary'
 import { ConfigOptions } from 'cloudinary'
 import Logger from './utils/logger'
 import gRPC from './services/grpc'
+import SupplyStub from './services/supply.service'
 
 type MongoConnection = {
     uri: string
@@ -189,6 +190,8 @@ class Application {
             )
 
             gRPC.start()
+
+            SupplyStub.connect()
 
             socketIO.init(server)
 

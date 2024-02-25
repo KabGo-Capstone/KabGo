@@ -7,7 +7,7 @@
         "start:dev": "nodemon server.ts",
         "start": "node dist/server.js",
         "build:prod": "npm run ts-check && rimraf dist && tsc && cp -r common/templates dist",
-        "build": "npm run ts-check && rimraf dist && cp -r ../protos ./ && tsc && cp -r common/templates dist",
+        "build": "npm run ts-check && rimraf dist && cp -r ../grpc ./ && tsc && cp -r common/templates dist",
         "add-build": "git add dist",
         "test": "cross-env NODE_ENV=test jest --runInBand --force-exit --testTimeout=10000",
         "ts-check": "tsc --project tsconfig.json",
@@ -29,8 +29,6 @@
         "add-build"
     ],
     "dependencies": {
-        "@grpc/grpc-js": "^1.9.13",
-        "@grpc/proto-loader": "^0.7.10",
         "args-parser": "^1.3.0",
         "axios": "^1.6.5",
         "bcryptjs": "^2.4.3",

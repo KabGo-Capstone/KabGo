@@ -15,13 +15,37 @@ parameters:
         default: false
 
 jobs:
+    # COMMONDS BUILD
+    common-init:
+        executor: node/default
+        working_directory: ~/KabGo
+        steps:
+            - checkout
+
+            - node/install-packages:
+                  app-dir: ~/KabGo/servers
+                  cache-path: node_modules
+                  override-ci-command: npm ci
+
+            - run:
+                  name: "Generate grpc proto boilerplate"
+                  command: |
+                      chmod +x ./servers/grpc/build.sh
+                      ./servers/grpc/build.sh
+
+            - persist_to_workspace:
+                  root: .
+                  paths:
+                      - .
+
     # SUPPLY CI/CD
 
     supply-init-service:
         executor: node/default
         working_directory: ~/KabGo
         steps:
-            - checkout
+            - attach_workspace:
+                  at: .
 
             - node/install-packages:
                   app-dir: ~/KabGo/servers/supply
@@ -32,7 +56,7 @@ jobs:
                   name: Format & clean code
                   command: |
                       cd servers/supply
-                      cp -r ../protos ./
+                      cp -r ../grpc ./
                       npm run format-fix
 
             - persist_to_workspace:
@@ -102,7 +126,8 @@ jobs:
         executor: node/default
         working_directory: ~/KabGo
         steps:
-            - checkout
+            - attach_workspace:
+                  at: .
 
             - node/install-packages:
                   app-dir: ~/KabGo/servers/demand
@@ -176,28 +201,6 @@ jobs:
                       - ${VPS_FINGERPRINT}
 
             - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "chmod +x ~/KabGo/scripts/deploy.sh && ~/KabGo/scripts/deploy.sh --service demand-service --service-path servers/demand"
-    # build-supply-service:
-    #     working_directory: ~/KabGo/servers/supply
-    #     executor: node/default
-    #     steps:
-    #         - checkout:
-    #               path: ~/KabGo
-    #         - node/install-packages:
-    #               app-dir: ~/KabGo/servers/supply
-    #               cache-path: node_modules
-    #               override-ci-command: npm ci
-
-    #         - run: npm run format-fix
-
-    #         - run: npm run build
-
-    #         - add_ssh_keys:
-    #               fingerprints:
-    #                   - "SHA256:mubRTx/rWnPeI9OSRbwV/ig1rC0LpbYCgNsSqQ6ACPg"
-
-    #         - run: ssh -o StrictHostKeyChecking=no -v root@mtech.id.vn -p 24700 "chmod +x ~/KabGo/scripts/deploy.sh && ~/KabGo/scripts/deploy.sh --service supply-service --service-path servers/supply"
-
-    #         # - run: ~/KabGo/scripts/deploy.sh --host mtech.id.vn --uname root --port 24700 --service supply
 
 workflows:
     build-publish-deploy-supply-service:
@@ -207,7 +210,10 @@ workflows:
                     << pipeline.parameters.run-build-all-server-service-job >>,
                 ]
         jobs:
-            - supply-init-service
+            - common-init
+            - supply-init-service:
+                  requires:
+                      - common-init
             - supply-check-lint:
                   requires:
                       - supply-init-service
@@ -225,7 +231,10 @@ workflows:
                     << pipeline.parameters.run-build-all-server-service-job >>,
                 ]
         jobs:
-            - demand-init-service
+            - common-init
+            - demand-init-service:
+                  requires:
+                      - common-init
             - demand-check-lint:
                   requires:
                       - demand-init-service

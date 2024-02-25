@@ -1,10 +1,9 @@
-import path from 'path'
-import { Server, ServerCredentials, loadPackageDefinition } from '@grpc/grpc-js'
-import { loadSync } from '@grpc/proto-loader'
+import { Server, ServerCredentials } from '@grpc/grpc-js'
 import chalk from 'chalk'
 
-import * as rpcs from '../protos'
+import { DriverInfomations } from '../protos/drivers.proto'
 import Logger from '../utils/logger'
+import { DriverInfomationsService } from '../../../grpc/proto_pb/supply/supply_grpc_pb'
 
 class GrpcServer {
     private static instance: GrpcServer
@@ -12,22 +11,18 @@ class GrpcServer {
 
     private constructor() {
         this.server = new Server()
-        this.loadProtos()
+        this.loadServices()
     }
 
     public static getInstance(): GrpcServer {
         return GrpcServer.instance ?? (GrpcServer.instance = new GrpcServer())
     }
 
-    private loadProtos() {
-        const packageDefinition = loadSync(
-            path.join(__dirname, '../../../protos/supply.proto')
+    private loadServices() {
+        this.server.addService(
+            DriverInfomationsService,
+            new DriverInfomations()
         )
-
-        const driversProto = loadPackageDefinition(packageDefinition)
-        const { service } = driversProto.DriverInfomations as any
-
-        this.server.addService(service, rpcs)
     }
 
     public start() {
@@ -37,7 +32,6 @@ class GrpcServer {
             `0.0.0.0:${process.env.gRPC_PORT ?? 50051}`,
             credentials,
             () => {
-                this.server.start()
                 Logger.info(
                     chalk.green(
                         `gRPC server is running on port ${chalk.cyan(process.env.gRPC_PORT ?? 50051)}`

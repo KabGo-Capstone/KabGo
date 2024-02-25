@@ -1,7 +1,6 @@
 import Application from './common/app'
 import * as allController from './common/controllers'
 import * as allEvent from './common/events'
-import supplysStub from './common/services/supply.service'
 import Logger from './common/utils/logger'
 
 process.on('uncaughtException', (err: Error) => {
@@ -29,20 +28,7 @@ const app = new Application({
     },
 })
 
-const server = app.run(() => {
-    supplysStub.find(
-        {
-            id: 'driver-1002',
-        },
-        (err: any, data: any) => {
-            if (err) {
-                Logger.error(err)
-            } else {
-                console.log(data)
-            }
-        }
-    )
-})
+const server = app.run()
 
 process.on('unhandledRejection', (err: Error) => {
     Logger.error('Unhandled Rejection. Shutting down...')
