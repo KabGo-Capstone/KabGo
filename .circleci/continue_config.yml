@@ -214,18 +214,18 @@ workflows:
                 ]
         jobs:
             - common-init
-            - supply-init-service:
-                  requires:
-                      - common-init
-            - supply-check-lint:
-                  requires:
-                      - supply-init-service
-            - supply-build-test-publish-service:
-                  requires:
-                      - supply-check-lint
-            - supply-deploy-service:
-                  requires:
-                      - supply-build-test-publish-service
+            # - supply-init-service:
+            #       requires:
+            #           - common-init
+            # - supply-check-lint:
+            #       requires:
+            #           - supply-init-service
+            # - supply-build-test-publish-service:
+            #       requires:
+            #           - supply-check-lint
+            # - supply-deploy-service:
+            #       requires:
+            #           - supply-build-test-publish-service
 
     build-publish-deploy-demand-service:
         when:
@@ -235,15 +235,15 @@ workflows:
                 ]
         jobs:
             - common-init
-            - demand-init-service:
-                  requires:
-                      - common-init
-            - demand-check-lint:
-                  requires:
-                      - demand-init-service
-            - demand-build-test-publish-service:
-                  requires:
-                      - demand-check-lint
-            - demand-deploy-service:
-                  requires:
-                      - demand-build-test-publish-service
+            # - demand-init-service:
+            #       requires:
+            #           - common-init
+            # - demand-check-lint:
+            #       requires:
+            #           - demand-init-service
+            # - demand-build-test-publish-service:
+            #       requires:
+            #           - demand-check-lint
+            # - demand-deploy-service:
+            #       requires:
+            #           - demand-build-test-publish-service

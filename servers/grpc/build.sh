@@ -24,6 +24,8 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+ls -la .
+
 npx grpc_tools_node_protoc \
     --grpc_out="grpc_js:${SOURCE_DIR}" \
     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
