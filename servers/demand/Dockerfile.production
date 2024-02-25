@@ -2,7 +2,7 @@ FROM node:alpine
 
 WORKDIR /usr/src
 
-COPY ./grpc/package.json ./
+COPY ./grpc/package*.json ./
 
 RUN npm ci
 
