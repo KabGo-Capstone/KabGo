@@ -24,6 +24,8 @@ SOURCE_DIR=grpc/proto_pb
 #     esac
 # done
 
+ls
+
 npx grpc_tools_node_protoc \
     --grpc_out="grpc_js:${SOURCE_DIR}" \
     --js_out="import_style=commonjs,binary:${SOURCE_DIR}" \
