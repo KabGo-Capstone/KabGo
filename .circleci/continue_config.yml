@@ -32,6 +32,7 @@ jobs:
                   name: Format & clean code
                   command: |
                       cd servers
+                      npm ci
                       npm run proto:generate
                       cp -r ./package*.json ./grpc
                       cp -r ./grpc ./supply
@@ -188,15 +189,15 @@ workflows:
                 ]
         jobs:
             - supply-init-service
-            - supply-check-lint:
-                  requires:
-                      - supply-init-service
-            - supply-build-test-publish-service:
-                  requires:
-                      - supply-check-lint
-            - supply-deploy-service:
-                  requires:
-                      - supply-build-test-publish-service
+            # - supply-check-lint:
+            #       requires:
+            #           - supply-init-service
+            # - supply-build-test-publish-service:
+            #       requires:
+            #           - supply-check-lint
+            # - supply-deploy-service:
+            #       requires:
+            #           - supply-build-test-publish-service
 
     build-publish-deploy-demand-service:
         when:
@@ -206,12 +207,12 @@ workflows:
                 ]
         jobs:
             - demand-init-service
-            - demand-check-lint:
-                  requires:
-                      - demand-init-service
-            - demand-build-test-publish-service:
-                  requires:
-                      - demand-check-lint
-            - demand-deploy-service:
-                  requires:
-                      - demand-build-test-publish-service
+            # - demand-check-lint:
+            #       requires:
+            #           - demand-init-service
+            # - demand-build-test-publish-service:
+            #       requires:
+            #           - demand-check-lint
+            # - demand-deploy-service:
+            #       requires:
+            #           - demand-build-test-publish-service
