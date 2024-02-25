@@ -9,11 +9,11 @@ RUN npm ci
 COPY . .
 
 
-WORKDIR /usr/src/grpc
+WORKDIR /usr/src
 
 COPY ./grpc ./
 
-COPY ./grpc/package*.json ../
+COPY ./grpc/package*.json ./grpc
 
 
 WORKDIR /usr/src
