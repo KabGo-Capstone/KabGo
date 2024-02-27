@@ -1,17 +1,17 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 
 export interface IUser {
-    _id: mongoose.Types.ObjectId;
-    id?: string;
-    avatar?: string;
-    username?: string;
-    
-    firstname: string;
-    lastname: string;
-    password: string;
-    email: string;
-    passwordChangedAt?: number;
+    _id: mongoose.Types.ObjectId
+    id?: string
+    avatar?: string
+    username?: string
+
+    firstname: string
+    lastname: string
+    password: string
+    email: string
+    passwordChangedAt?: number
 }
 
 const UserSchema = new mongoose.Schema<IUser>(
@@ -34,29 +34,31 @@ const UserSchema = new mongoose.Schema<IUser>(
             versionKey: false,
         },
     }
-);
+)
 
-UserSchema.virtual('id').get(function() {
-    return this._id.toHexString();
-});
+UserSchema.virtual('id').get(function () {
+    return this._id.toHexString()
+})
 
 UserSchema.pre('save', async function (next): Promise<void> {
-    if (!this.isModified('password')) return next();
+    if (!this.isModified('password')) return next()
 
-	const salt = await bcrypt.genSalt((process.env.SALT_ROUNDS as any as number) || 12);
-	this.password = await bcrypt.hash(this.password, salt);
-    
-	next();
-});
+    const salt = await bcrypt.genSalt(
+        (process.env.SALT_ROUNDS as any as number) || 12
+    )
+    this.password = await bcrypt.hash(this.password, salt)
+
+    next()
+})
 
 UserSchema.pre('save', function (next) {
-    if (!this.isModified('password') || this.isNew) return next();
+    if (!this.isModified('password') || this.isNew) return next()
 
-    this.passwordChangedAt = Date.now() - 1000;
-	
-    next();
-});
+    this.passwordChangedAt = Date.now() - 1000
 
-const UserModel = mongoose.model<IUser>('User', UserSchema);
+    next()
+})
 
-export default UserModel;
+const UserModel = mongoose.model<IUser>('User', UserSchema)
+
+export default UserModel

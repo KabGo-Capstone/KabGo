@@ -1,7 +1,7 @@
-import AppError from "../services/errors/app.error";
+import AppError from '../services/errors/app.error'
 
 interface IError {
-    createError(): AppError;
+    createError(): AppError
 }
 
-export default IError;
+export default IError

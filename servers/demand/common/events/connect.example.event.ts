@@ -1,13 +1,17 @@
-import mongoose from "mongoose";
-import { Server, Socket } from "socket.io";
-import IEvent from "../interfaces/event";
+import mongoose from 'mongoose'
+import { Server, Socket } from 'socket.io'
+import IEvent from '../interfaces/event'
 
 class ConnectEvent implements IEvent {
-    public readonly event: string = 'connecting';
-    public readonly listener: (io: Server, socket: Socket, ...args: any[]) => void;
+    public readonly event: string = 'connecting'
+    public readonly listener: (
+        io: Server,
+        socket: Socket,
+        ...args: any[]
+    ) => void
 
     constructor() {
-        this.listener = this.onConnect;
+        this.listener = this.onConnect
     }
 
     private async onConnect(io: Server, socket: Socket) {
@@ -17,10 +21,10 @@ class ConnectEvent implements IEvent {
             lastname: '123',
             password: '123',
             email: '123',
-        };
+        }
 
-        io.socket_list = [...io.socket_list, socket];
+        io.socket_list = [...io.socket_list, socket]
     }
 }
 
-export default new ConnectEvent();
+export default new ConnectEvent()

@@ -23,16 +23,42 @@ services:
     #     - call-center
     #     - rabbitmq
 
+    demand-service:
+        build:
+            context: ../servers/demand
+            dockerfile: Dockerfile.production
+        image: wgmin/demand-service
+        container_name: demand-service
+        hostname: localhost
+        networks:
+            - proxy
+        ports:
+            - "5010:5001"
+        environment:
+            FORCE_COLOR: 1
+            DEBUG_COLORS: "true"
+            TERM: xterm-256color
+            COLORTERM: truecolor
+        labels:
+            - traefik.enable=true
+            - traefik.docker.network=proxy
+            - traefik.http.routers.demand-service.rule=Host(`kabgo-demand.mtech.id.vn`)
+            - traefik.http.routers.demand-service.entrypoints=websecure
+            - traefik.http.routers.demand-service.tls=true
+            - traefik.http.routers.demand-service.tls.certresolver=letsencrypt
+        restart: unless-stopped
+
     supply-service:
         build:
             context: ../servers/supply
             dockerfile: Dockerfile.production
+        image: wgmin/supply-service
         container_name: supply-service
         hostname: localhost
         networks:
             - proxy
         ports:
-            - "5010:5002"
+            - "5020:5002"
         environment:
             FORCE_COLOR: 1
             DEBUG_COLORS: "true"
@@ -44,7 +70,7 @@ services:
             - traefik.http.routers.supply-service.rule=Host(`kabgo-supply.mtech.id.vn`)
             - traefik.http.routers.supply-service.entrypoints=websecure
             - traefik.http.routers.supply-service.tls=true
-            - traefik.http.routers.supply-service.tls.certresolver=le
+            - traefik.http.routers.supply-service.tls.certresolver=letsencrypt
         restart: unless-stopped
 
     # rabbitmq:
